@@ -140,13 +140,44 @@ else
     echo "For best results, ensure Nerd Fonts are installed for icons: https://www.nerdfonts.com/"
 fi
 
-## Starship prompt setup
+
+## STARSHIP PROMPT
+# Check if the 'starship' command exists
 if command -v starship &>/dev/null; then
+    # Initialize Starship prompt for Bash
     eval "$(starship init bash)"
 else
-    echo "Starship prompt is not installed. Install it from https://starship.rs"
-    echo "Nerd Fonts are also required for proper rendering: https://www.nerdfonts.com/"
+    # Inform the user that Starship is not installed
+    echo "Starship prompt is not installed."
+    echo "Install it from: https://starship.rs"
+
+    # Provide installation instructions based on OS
+    case "$(uname -s)" in
+        Linux)
+            echo "You can try installing it with your package manager. For example, on Ubuntu/Debian:"
+            echo "  sudo apt install starship"
+            echo "Or, download and install it directly from: https://starship.rs"
+            ;;
+        Darwin)
+            echo "For macOS, you can install it using Homebrew:"
+            echo "  brew install starship"
+            echo "Or, download and install it directly from: https://starship.rs"
+            ;;
+        CYGWIN*|MINGW*|MSYS*)
+            echo "For Windows, you can install it using Scoop or Chocolatey:"
+            echo "  scoop install starship"
+            echo "  choco install starship"
+            echo "Or, download and install it directly from: https://starship.rs"
+            ;;
+        *)
+            echo "Visit https://starship.rs for detailed installation instructions for your system."
+            ;;
+    esac
+
+    echo "Note: Nerd Fonts are required for proper rendering."
+    echo "You can download them from: https://www.nerdfonts.com/"
 fi
+
 
 # Optional: Clear PS1 to avoid conflicts
 unset PS1
